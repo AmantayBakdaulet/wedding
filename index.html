@@ -685,18 +685,6 @@
 <section id="details" class="sec" style="padding-top:56px">
   <div class="pat"></div>
   <div class="inner" style="position:relative;z-index:1">
-    <span class="cap fade" id="det-cap"></span>
-
-    <div class="orn-rule fade">
-      <div class="orn-rule-line"></div>
-      <div class="orn-rule-center">
-        <div class="ds"></div><div class="d"></div><div class="ds"></div>
-      </div>
-      <div class="orn-rule-line rev"></div>
-    </div>
-
-    <div class="det-grid fade" id="det-grid"></div>
-
     <div class="halal fade" id="halal">
       <span class="halal-icon">☪</span>
       <div>
@@ -777,8 +765,6 @@
       <div class="orn-rule-line rev"></div>
     </div>
 
-    <p class="rsvp-hint fade" id="rsvp-hint"></p>
-
     <form class="fade" id="rsvp-form" novalidate>
       <div class="fg">
         <label for="f-name" class="req" id="l-name"></label>
@@ -846,15 +832,13 @@
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZPzP4f1qoPO_3zaFs7adcl9TbIVpvkZP74_lDljgpaPkuhTr79Pw7Kc411ngp7XbA/exec';
 
 const CONFIG = {
-  groom: '[АТЫ]',
-  bride: '[АТЫ]',
-  date:  '[КҮН, АЙ, ЖЫЛ]',
-  owners:       '[ТОЙ ИЕЛЕРІ]',
-  venueTime:    '[УАҚЫТ]',
-  venueAddress: '[ТОЛЫҚ МЕКЕН-ЖАЙ]',
-  venueMapUrl:  '#',
-  dresscode:    '[КИІМ ҮЛГІСІ]',
-  deadline:     '[МЕРЗІМ]',
+  groom: 'Бақдәулет',
+  bride: 'Тоғжан',
+  date:  '17, 07, 2026',
+  owners:       'Сабира апа & Ербол & Гульбану',
+  venueTime:    '18:00',
+  venueAddress: 'Тараз, Ташкентская 268',
+  venueMapUrl:  'https://go.2gis.com/aphld',
   ui: {
     heroEyebrow: 'Той шақыруы',
     scrollLbl:   'Төмен',
@@ -865,15 +849,11 @@ const CONFIG = {
     vcTimeLbl:   'Басталу уақыты',
     vcAddrLbl:   'Мекен-жай',
     vcMapLbl:    'Картада ашу',
-    detCap:      'Той туралы',
-    detDresscode:'Дресс-код',
-    detDeadline: 'Жауап беру мерзімі',
     halalTitle:  'Той Халал өтеді',
     halalSub:    'Дастарханға ешқандай алкоголь қойылмайды.',
-    msgBody:     'Жуырда біздің өміріміздегі ең бақытты күндердің бірі болмақ! Сол бақытты күнде сіз(дер)ді жанымыздан көріп, қуанышымызбен бөліскіміз келеді! Тойымыздың салтанатты дастарханында сіз(дер)ді күтеміз!',
+    msgBody:     'Жуырда біздің өміріміздегі ең бақытты күндердің бірі болмақ! Сол бақытты күнде сіздерді жанымыздан көріп, қуанышымызбен бөліскіміз келеді! Тойымыздың салтанатты дастарханында сіздерді күтеміз!',
     msgSignLbl:  'Құрметпен,',
     rsvpCap:     'Қатысуыңызды растаңыз',
-    rsvpHint:    'Тойға дайындалу үшін жауабыңызды [МЕРЗІМ] дейін жіберіңіз.',
     lName:       'Толық аты-жөні',
     lAttend:     'Келесіз бе?',
     rYes:        'Иә, келемін',
@@ -893,7 +873,7 @@ const CONFIG = {
 function s(id,v){const e=document.getElementById(id);if(e)e.textContent=v;}
 
 function render(){
-  const{groom,bride,date,owners,venueTime,venueAddress,venueMapUrl,dresscode,deadline,ui}=CONFIG;
+  const{groom,bride,date,owners,venueTime,venueAddress,venueMapUrl,ui}=CONFIG;
   document.title=`${groom} & ${bride} — Той шақыруы`;
   s('hero-eyebrow',ui.heroEyebrow); s('h-name1',groom); s('h-name2',bride);
   s('hero-date',date); s('scroll-lbl',ui.scrollLbl);
@@ -904,18 +884,10 @@ function render(){
   s('vc-addr-lbl',ui.vcAddrLbl); s('vc-addr',venueAddress);
   s('vc-map-lbl',ui.vcMapLbl);
   const map=document.getElementById('vc-map'); if(map)map.href=venueMapUrl;
-  s('det-cap',ui.detCap);
-  const grid=document.getElementById('det-grid');
-  if(grid){
-    grid.innerHTML=[
-      {l:ui.detDresscode,v:dresscode},
-      {l:ui.detDeadline, v:deadline },
-    ].map(d=>`<div class="det-pill"><span class="det-lbl">${d.l}</span><p class="det-val">${d.v}</p></div>`).join('');
-  }
   s('halal-title',ui.halalTitle); s('halal-sub',ui.halalSub);
   s('msg-body',ui.msgBody); s('msg-sign-lbl',ui.msgSignLbl);
   s('msg-n1',groom); s('msg-n2',bride);
-  s('rsvp-cap',ui.rsvpCap); s('rsvp-hint',ui.rsvpHint);
+  s('rsvp-cap',ui.rsvpCap);
   s('l-name',ui.lName); s('l-attend',ui.lAttend);
   s('r-yes',ui.rYes); s('r-no',ui.rNo); s('l-count',ui.lCount);
   s('btn-submit',ui.btnSubmit);
