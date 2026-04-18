@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title"></title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ivory:   #FAF7F2;
+      --cream:   #F2EBE0;
+      --gold:    #8B6E52;
+      --gold-lt: #B8967A;
+      --text:    #3D2E22;
+      --muted:   #7A6355;
+      --white:   #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      background: var(--ivory);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ─── Utility ──────────────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section {
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 0 auto 48px;
+      max-width: 320px;
+    }
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gold-lt);
+    }
+    .divider-icon {
+      color: var(--gold);
+      font-size: 18px;
+      letter-spacing: 4px;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 400;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    /* ─── Hero ─────────────────────────────────────────── */
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      background: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 20% 80%, rgba(139,110,82,.08) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 80% 20%, rgba(139,110,82,.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-pre {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+      margin-bottom: 28px;
+    }
+
+    .hero-names {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 10vw, 6rem);
+      font-weight: 400;
+      color: var(--gold);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero-amp {
+      font-style: italic;
+      font-size: 0.65em;
+      display: block;
+      margin: 4px 0;
+      color: var(--gold-lt);
+    }
+
+    .hero-date {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 3vw, 1.25rem);
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--gold-lt);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+    .scroll-hint svg { width: 18px; height: 18px; stroke: currentColor; fill: none; }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(6px); }
+    }
+
+    /* ─── Venue ─────────────────────────────────────────── */
+    #venue { background: var(--white); }
+
+    .venue-card {
+      display: inline-block;
+      background: var(--cream);
+      border: 1px solid rgba(139,110,82,.2);
+      border-radius: 4px;
+      padding: 36px 48px;
+      max-width: 480px;
+      width: 100%;
+    }
+
+    .venue-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+      margin-bottom: 8px;
+    }
+
+    .venue-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .venue-address {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .map-link {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid var(--gold-lt);
+      padding-bottom: 2px;
+      transition: color .2s, border-color .2s;
+    }
+    .map-link:hover { color: var(--gold-lt); border-color: transparent; }
+
+    /* ─── Program ───────────────────────────────────────── */
+    #program { background: var(--ivory); }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 420px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 0 24px;
+      align-items: start;
+      position: relative;
+      padding-bottom: 32px;
+    }
+
+    .timeline-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 89px;
+      top: 8px;
+      bottom: 0;
+      width: 1px;
+      background: var(--cream);
+    }
+
+    .tl-time {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--gold-lt);
+      text-align: right;
+      padding-top: 2px;
+    }
+
+    .tl-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      position: absolute;
+      left: 85px;
+      top: 6px;
+    }
+
+    .tl-content { padding-left: 10px; }
+
+    .tl-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .tl-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    /* ─── Details Strip ──────────────────────────────────── */
+    #details {
+      background: var(--gold);
+      color: var(--white);
+      padding: 60px 20px;
+    }
+
+    .details-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px 60px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .detail-item { text-align: center; }
+
+    .detail-icon {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .detail-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: .7;
+      margin-bottom: 4px;
+    }
+
+    .detail-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-style: italic;
+    }
+
+    /* ─── RSVP ──────────────────────────────────────────── */
+    #rsvp { background: var(--white); }
+
+    .rsvp-sub {
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 440px;
+      margin: 0 auto 40px;
+    }
+
+    .rsvp-form {
+      max-width: 480px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .required::after { content: ' *'; color: var(--gold-lt); }
+
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      background: var(--ivory);
+      border: 1px solid rgba(139,110,82,.25);
+      border-radius: 2px;
+      padding: 12px 16px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--text);
+      outline: none;
+      transition: border-color .2s;
+    }
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    textarea:focus {
+      border-color: var(--gold);
+    }
+
+    textarea { resize: vertical; min-height: 90px; }
+
+    /* Radio group */
+    .radio-group {
+      display: flex;
+      gap: 16px;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--text);
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .radio-label input[type="radio"] { display: none; }
+
+    .radio-box {
+      width: 20px;
+      height: 20px;
+      border: 1px solid var(--gold-lt);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color .2s;
+      flex-shrink: 0;
+    }
+
+    .radio-box::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0;
+      transition: opacity .2s;
+    }
+
+    .radio-label input[type="radio"]:checked + .radio-box { border-color: var(--gold); }
+    .radio-label input[type="radio"]:checked + .radio-box::after { opacity: 1; }
+
+    /* Guest count — hidden by default */
+    #guest-count-group { display: none; }
+
+    /* Submit button */
+    .btn-submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--gold);
+      color: var(--white);
+      border: none;
+      border-radius: 2px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s, opacity .2s;
+      margin-top: 8px;
+    }
+    .btn-submit:hover:not(:disabled) { background: var(--gold-lt); }
+    .btn-submit:disabled { opacity: .6; cursor: not-allowed; }
+
+    /* Success / Error messages */
+    #rsvp-success {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .success-icon {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .success-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .success-text {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    #form-error {
+      display: none;
+      background: #FFF0ED;
+      border: 1px solid #E0A090;
+      border-radius: 2px;
+      padding: 12px 16px;
+      margin-top: 16px;
+      font-size: 0.875rem;
+      color: #8B3A2A;
+    }
+
+    /* ─── Footer ─────────────────────────────────────────── */
+    footer {
+      background: var(--cream);
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    footer .footer-names {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════════ -->
+<section id="hero">
+  <p class="hero-pre fade-in" id="hero-pre"></p>
+  <h1 class="hero-names fade-in" id="hero-names">
+    <span id="hero-name1"></span>
+    <span class="hero-amp">&amp;</span>
+    <span id="hero-name2"></span>
+  </h1>
+  <p class="hero-date fade-in" id="hero-date"></p>
+
+  <div class="scroll-hint" aria-hidden="true">
+    <svg viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     VENUE
+═══════════════════════════════════════════════════════ -->
+<section id="venue" class="section">
+  <h2 class="fade-in" id="venue-heading"></h2>
+  <div class="divider fade-in"><span class="divider-icon">✦ ✦ ✦</span></div>
+
+  <div class="venue-card fade-in">
+    <p class="venue-label" id="venue-label"></p>
+    <p class="venue-name" id="venue-name"></p>
+    <p class="venue-address" id="venue-address"></p>
+    <a class="map-link" id="venue-map-link" href="#" target="_blank" rel="noopener"></a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     PROGRAM
+═══════════════════════════════════════════════════════ -->
+<section id="program" class="section">
+  <h2 class="fade-in" id="program-heading"></h2>
+  <div class="divider fade-in"><span class="divider-icon">✦ ✦ ✦</span></div>
+
+  <div class="timeline fade-in" id="timeline">
+    <!-- Populated by JS -->
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     DETAILS STRIP
+═══════════════════════════════════════════════════════ -->
+<section id="details">
+  <div class="details-grid fade-in" id="details-grid">
+    <!-- Populated by JS -->
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     RSVP
+═══════════════════════════════════════════════════════ -->
+<section id="rsvp" class="section">
+  <h2 class="fade-in" id="rsvp-heading"></h2>
+  <div class="divider fade-in"><span class="divider-icon">✦ ✦ ✦</span></div>
+
+  <p class="rsvp-sub fade-in" id="rsvp-sub"></p>
+
+  <form class="rsvp-form fade-in" id="rsvp-form" novalidate>
+
+    <!-- Аты-жөні -->
+    <div class="form-group">
+      <label for="field-name" class="required" id="label-name"></label>
+      <input type="text" id="field-name" name="name" autocomplete="name" />
+    </div>
+
+    <!-- Келесіз бе? -->
+    <div class="form-group">
+      <label class="required" id="label-attending"></label>
+      <div class="radio-group">
+        <label class="radio-label">
+          <input type="radio" name="attending" value="yes" />
+          <span class="radio-box"></span>
+          <span id="radio-yes"></span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="attending" value="no" />
+          <span class="radio-box"></span>
+          <span id="radio-no"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Қанша адам (показывается при "да") -->
+    <div class="form-group" id="guest-count-group">
+      <label for="field-guests" id="label-guests"></label>
+      <input type="number" id="field-guests" name="guests" min="1" max="5" value="1" />
+    </div>
+
+    <!-- Тағам ескертулері -->
+    <div class="form-group">
+      <label for="field-diet" id="label-diet"></label>
+      <input type="text" id="field-diet" name="diet" />
+    </div>
+
+    <!-- Тілек -->
+    <div class="form-group">
+      <label for="field-wish" id="label-wish"></label>
+      <textarea id="field-wish" name="wish"></textarea>
+    </div>
+
+    <button type="submit" class="btn-submit" id="btn-submit"></button>
+    <div id="form-error" role="alert"></div>
+  </form>
+
+  <!-- Успех -->
+  <div id="rsvp-success">
+    <span class="success-icon">✦</span>
+    <p class="success-title" id="success-title"></p>
+    <p class="success-text" id="success-text"></p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════ -->
+<footer>
+  <span class="footer-names" id="footer-names"></span>
+  <span id="footer-date"></span>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCRIPT
+═══════════════════════════════════════════════════════ -->
+<script>
+/* ────────────────────────────────────────────────────────
+   APPS SCRIPT URL
+   Вставьте сюда URL после деплоя Google Apps Script
+──────────────────────────────────────────────────────── */
+const APPS_SCRIPT_URL = '';
+
+/* ────────────────────────────────────────────────────────
+   CONFIG — измените значения здесь, не трогая разметку
+──────────────────────────────────────────────────────── */
+const CONFIG = {
+  /* Имена */
+  groom:     '[АТЫ]',
+  bride:     '[АТЫ]',
+
+  /* Дата и время */
+  date:      '[КҮН, АЙ, ЖЫЛ]',
+
+  /* Место проведения */
+  venueName:    '[МЕКЕН-ЖАЙ АТАУЫ]',
+  venueAddress: '[ТОЛЫҚ МЕКЕН-ЖАЙ]',
+  venueMapUrl:  '#',           // Ссылка на Google Maps
+
+  /* Программа */
+  program: [
+    { time: '[УАҚЫТ]', title: 'Қонақтарды қарсы алу',    desc: 'Қош келдіңіздер' },
+    { time: '[УАҚЫТ]', title: 'Неке қию рәсімі',          desc: 'Ресми рәсім' },
+    { time: '[УАҚЫТ]', title: 'Фотосуретке түсу',         desc: 'Жас жұппен суретке түсу' },
+    { time: '[УАҚЫТ]', title: 'Салтанатты банкет',        desc: 'Кеш және тамақтану' },
+  ],
+
+  /* Детали (полоска) */
+  dresscode:    '[КИІМ ҮЛГІСІ]',
+  deadline:     '[МЕРЗІМ]',
+
+  /* Тексты интерфейса (казахский) */
+  ui: {
+    pageTitle:         '[АТЫ] & [АТЫ] — Той шақыруы',
+    heroPre:           'Той шақыруы',
+    venueHeading:      'Той өтетін орын',
+    venueLabel:        'Мекен-жай',
+    venueMapLink:      'Картада ашу',
+    programHeading:    'Той бағдарламасы',
+
+    detailDresscode:   'Киім үлгісі',
+    detailDeadline:    'Жауап беру мерзімі',
+    detailDate:        'Той күні',
+
+    rsvpHeading:       'Қатысуыңызды растаңыз',
+    rsvpSub:           'Тойға дайындалу үшін жауабыңызды [МЕРЗІМ] дейін жіберіңіз.',
+
+    labelName:         'Толық аты-жөні',
+    labelAttending:    'Келесіз бе?',
+    radioYes:          'Иә, келемін',
+    radioNo:           'Жоқ, келмеймін',
+    labelGuests:       'Қанша адам?',
+    labelDiet:         'Тағам ескертулері',
+    labelWish:         'Жас жұптарға тілек',
+
+    btnSubmit:         'Жіберу',
+    btnSending:        'Жіберілуде...',
+
+    successTitle:      'Рахмет!',
+    successText:       'Жауабыңыз қабылданды. Тойда кездескенше!',
+
+    errorRequired:     'Міндетті өрістерді толтырыңыз.',
+    errorAttending:    'Келетін-келмейтіндігіңізді таңдаңыз.',
+    errorNetwork:      'Жіберу қатесі. Байланысыңызды тексеріп, қайта көріңіз.',
+    errorNoUrl:        'APPS_SCRIPT_URL орнатылмаған. README.md нұсқауларын орындаңыз.',
+
+    footerDate:        '[КҮН, АЙ, ЖЫЛ]',
+  }
+};
+
+/* ────────────────────────────────────────────────────────
+   RENDER CONFIG INTO DOM
+──────────────────────────────────────────────────────── */
+function setText(id, value) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = value;
+}
+
+function renderContent() {
+  const { groom, bride, date, venueName, venueAddress, venueMapUrl, dresscode, deadline, program, ui } = CONFIG;
+
+  document.title                = ui.pageTitle;
+  setText('page-title',         ui.pageTitle);
+  setText('hero-pre',           ui.heroPre);
+  setText('hero-name1',         groom);
+  setText('hero-name2',         bride);
+  setText('hero-date',          date);
+
+  setText('venue-heading',      ui.venueHeading);
+  setText('venue-label',        ui.venueLabel);
+  setText('venue-name',         venueName);
+  setText('venue-address',      venueAddress);
+  const mapLink = document.getElementById('venue-map-link');
+  if (mapLink) { mapLink.textContent = ui.venueMapLink; mapLink.href = venueMapUrl; }
+
+  setText('program-heading',    ui.programHeading);
+
+  // Timeline
+  const tl = document.getElementById('timeline');
+  if (tl) {
+    tl.innerHTML = program.map(item => `
+      <div class="timeline-item">
+        <span class="tl-time">${item.time}</span>
+        <span class="tl-dot" aria-hidden="true"></span>
+        <div class="tl-content">
+          <p class="tl-title">${item.title}</p>
+          <p class="tl-desc">${item.desc}</p>
+        </div>
+      </div>`).join('');
+  }
+
+  // Details strip
+  const dg = document.getElementById('details-grid');
+  if (dg) {
+    dg.innerHTML = [
+      { icon: '📅', label: ui.detailDate,      value: date },
+      { icon: '👗', label: ui.detailDresscode,  value: dresscode },
+      { icon: '🗓', label: ui.detailDeadline,   value: deadline },
+    ].map(d => `
+      <div class="detail-item">
+        <span class="detail-icon">${d.icon}</span>
+        <p class="detail-label">${d.label}</p>
+        <p class="detail-value">${d.value}</p>
+      </div>`).join('');
+  }
+
+  // RSVP section
+  setText('rsvp-heading',  ui.rsvpHeading);
+  setText('rsvp-sub',      ui.rsvpSub);
+  setText('label-name',    ui.labelName);
+  setText('label-attending', ui.labelAttending);
+  setText('radio-yes',     ui.radioYes);
+  setText('radio-no',      ui.radioNo);
+  setText('label-guests',  ui.labelGuests);
+  setText('label-diet',    ui.labelDiet);
+  setText('label-wish',    ui.labelWish);
+  setText('btn-submit',    ui.btnSubmit);
+
+  // Success
+  setText('success-title', ui.successTitle);
+  setText('success-text',  ui.successText);
+
+  // Footer
+  setText('footer-names', `${groom} & ${bride}`);
+  setText('footer-date',  ui.footerDate);
+}
+
+/* ────────────────────────────────────────────────────────
+   ANIMATIONS — Intersection Observer
+──────────────────────────────────────────────────────── */
+function initAnimations() {
+  const els = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(el => observer.observe(el));
+}
+
+/* ────────────────────────────────────────────────────────
+   RSVP FORM LOGIC
+──────────────────────────────────────────────────────── */
+function initForm() {
+  const form        = document.getElementById('rsvp-form');
+  const btnSubmit   = document.getElementById('btn-submit');
+  const errorDiv    = document.getElementById('form-error');
+  const successDiv  = document.getElementById('rsvp-success');
+  const countGroup  = document.getElementById('guest-count-group');
+  const { ui }      = CONFIG;
+
+  // Show/hide guest count based on radio
+  document.querySelectorAll('input[name="attending"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      countGroup.style.display = radio.value === 'yes' ? 'block' : 'none';
+    });
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorDiv.style.display = 'none';
+
+    // --- Validation ---
+    const name       = document.getElementById('field-name').value.trim();
+    const attending  = form.querySelector('input[name="attending"]:checked');
+    const guests     = document.getElementById('field-guests').value;
+    const diet       = document.getElementById('field-diet').value.trim();
+    const wish       = document.getElementById('field-wish').value.trim();
+
+    if (!name) {
+      showError(ui.errorRequired);
+      document.getElementById('field-name').focus();
+      return;
+    }
+    if (!attending) {
+      showError(ui.errorAttending);
+      return;
+    }
+    if (!APPS_SCRIPT_URL) {
+      showError(ui.errorNoUrl);
+      return;
+    }
+
+    // --- Submit ---
+    setLoading(true);
+
+    const payload = {
+      name,
+      attending: attending.value,
+      guests:    attending.value === 'yes' ? (parseInt(guests, 10) || 1) : 0,
+      diet,
+      wish,
+    };
+
+    try {
+      const res = await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (data.result === 'success') {
+        form.style.display   = 'none';
+        successDiv.style.display = 'block';
+      } else {
+        showError(data.message || ui.errorNetwork);
+        setLoading(false);
+      }
+    } catch {
+      showError(ui.errorNetwork);
+      setLoading(false);
+    }
+  });
+
+  function showError(msg) {
+    errorDiv.textContent   = msg;
+    errorDiv.style.display = 'block';
+    errorDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function setLoading(on) {
+    btnSubmit.disabled    = on;
+    btnSubmit.textContent = on ? ui.btnSending : ui.btnSubmit;
+  }
+}
+
+/* ────────────────────────────────────────────────────────
+   INIT
+──────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  renderContent();
+  initAnimations();
+  initForm();
+});
+</script>
+</body>
+</html>
