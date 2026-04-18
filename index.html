@@ -57,7 +57,7 @@
     h2 {
       font-family: 'PT Serif', serif;
       font-weight: 400;
-      font-size: clamp(1.7rem, 4vw, 2.3rem);
+      font-size: clamp(2rem, 5vw, 2.8rem);
       color: var(--navy); line-height: 1.2; margin-bottom: 36px;
     }
 
@@ -168,7 +168,7 @@
     .hero-names {
       font-family: 'PT Serif', serif;
       font-weight: 400;
-      font-size: clamp(3.8rem, 13vw, 9rem);
+      font-size: clamp(4.5rem, 16vw, 11rem);
       line-height: .95; color: var(--cream);
     }
     .hero-amp {
@@ -195,7 +195,7 @@
     .hero-date {
       font-family: 'PT Serif', serif;
       font-style: italic;
-      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      font-size: clamp(1.15rem, 3vw, 1.6rem);
       color: rgba(196,175,156,.85); letter-spacing: .05em;
     }
 
@@ -232,7 +232,7 @@
 
     .invite-body {
       font-family: 'PT Serif', serif;
-      font-size: clamp(1.05rem, 2.2vw, 1.22rem);
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
       line-height: 2; color: var(--ink);
     }
 
@@ -243,7 +243,7 @@
     }
     .invite-owners {
       font-family: 'PT Serif', serif;
-      font-size: 1.45rem; color: var(--navy);
+      font-size: 1.7rem; color: var(--navy);
     }
 
 
@@ -277,7 +277,7 @@
     }
     .vc-val {
       font-family: 'PT Serif', serif;
-      font-size: 1.25rem; color: var(--navy); line-height: 1.5;
+      font-size: 1.45rem; color: var(--navy); line-height: 1.5;
     }
 
     .map-link {
@@ -367,7 +367,7 @@
     .msg-body {
       font-family: 'PT Serif', serif;
       font-style: italic;
-      font-size: clamp(1.05rem, 2.2vw, 1.28rem);
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
       line-height: 2; color: var(--ink);
       max-width: 480px; margin: 0 auto 40px;
     }
@@ -378,7 +378,7 @@
     }
     .msg-names {
       font-family: 'PT Serif', serif;
-      font-style: italic; font-size: 2.2rem; color: var(--navy);
+      font-style: italic; font-size: 2.6rem; color: var(--navy);
     }
     .msg-amp { color: var(--taupe); }
 
@@ -482,7 +482,7 @@
     .ft-names {
       display: block;
       font-family: 'PT Serif', serif;
-      font-style: italic; font-size: 1.9rem;
+      font-style: italic; font-size: 2.2rem;
       color: var(--cream); margin-bottom: 10px;
     }
     .ft-date { font-size: .7rem; letter-spacing: .16em; color: var(--taupe); }
@@ -1006,7 +1006,42 @@ function initForm(){
   function setLoad(on){btn.disabled=on;btn.textContent=on?ui.btnSending:ui.btnSubmit;}
 }
 
-document.addEventListener('DOMContentLoaded',()=>{ render(); initAnim(); initMusic(); initForm(); });
+function initAutoScroll(){
+  const sections=['hero','invite','venue','details','message','rsvp']
+    .map(id=>document.getElementById(id)).filter(Boolean);
+  let current=0, paused=false, resumeTimer=null;
+
+  function scrollToNext(){
+    if(paused||current>=sections.length-1)return;
+    current++;
+    sections[current].scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  function onUserScroll(){
+    paused=true;
+    clearTimeout(resumeTimer);
+    resumeTimer=setTimeout(()=>{paused=false;},8000);
+  }
+
+  window.addEventListener('wheel',     onUserScroll,{passive:true});
+  window.addEventListener('touchmove', onUserScroll,{passive:true});
+  window.addEventListener('keydown',   onUserScroll);
+
+  // Track which section is in view
+  new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){const i=sections.indexOf(e.target);if(i!==-1)current=i;}
+    });
+  },{threshold:0.5}).observe && sections.forEach(s=>
+    new IntersectionObserver((entries)=>{
+      if(entries[0].isIntersecting){const i=sections.indexOf(s);if(i!==-1)current=i;}
+    },{threshold:0.5}).observe(s)
+  );
+
+  setInterval(scrollToNext,5000);
+}
+
+document.addEventListener('DOMContentLoaded',()=>{ render(); initAnim(); initMusic(); initForm(); initAutoScroll(); });
 </script>
 </body>
 </html>
