@@ -517,6 +517,21 @@
     .eq span:nth-child(4){animation-delay:.08s;height:75%}
     @keyframes eqb { from{transform:scaleY(.2)} to{transform:scaleY(1)} }
     #music-btn.paused .eq span { animation-play-state: paused; }
+
+    #music-hint {
+      display: none;
+      position: fixed; bottom: 84px; right: 16px; z-index: 998;
+      background: var(--navy); color: var(--cream);
+      border: 1px solid rgba(196,175,156,.4);
+      padding: 10px 14px; gap: 8px;
+      align-items: center;
+      font-size: .72rem; letter-spacing: .05em;
+      box-shadow: 0 4px 16px rgba(44,61,81,.3);
+      animation: hintin .4s ease;
+      cursor: pointer;
+    }
+    #music-hint svg { stroke: var(--taupe); flex-shrink: 0; }
+    @keyframes hintin { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
   </style>
 </head>
 <body>
@@ -820,6 +835,11 @@
 </footer>
 
 <!-- ══════ MUSIC ════════════════════════════════════ -->
+<div id="music-hint">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+  <span id="music-hint-txt">Музыканы қосу үшін түртіңіз</span>
+</div>
+
 <button id="music-btn" class="paused" aria-label="Музыка">
   <svg id="icon-note" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
   <div class="eq" id="icon-eq" style="display:none"><span></span><span></span><span></span><span></span></div>
@@ -909,24 +929,47 @@ function initMusic(){
   const btn=document.getElementById('music-btn');
   const note=document.getElementById('icon-note');
   const eq=document.getElementById('icon-eq');
-  let playing=false,unlocked=false;
+  const hint=document.getElementById('music-hint');
+  let playing=false;
+
   function setPlaying(on){
     playing=on;
     note.style.display=on?'none':'block';
     eq.style.display=on?'flex':'none';
     btn.classList.toggle('paused',!on);
   }
-  function tryPlay(){
-    if(unlocked)return; unlocked=true;
+
+  function startAudio(){
     audio.volume=0.5;
-    audio.play().then(()=>setPlaying(true)).catch(()=>{});
+    audio.play().then(()=>{
+      setPlaying(true);
+      if(hint)hint.style.display='none';
+    }).catch(()=>{});
   }
-  document.addEventListener('click',tryPlay,{once:true});
-  document.addEventListener('touchstart',tryPlay,{once:true});
+
+  function onFirstInteraction(){
+    startAudio();
+    if(hint)hint.style.display='none';
+    document.removeEventListener('click',onFirstInteraction);
+    document.removeEventListener('touchstart',onFirstInteraction);
+  }
+
+  // Try immediate autoplay
+  audio.volume=0.5;
+  audio.play().then(()=>{
+    setPlaying(true);
+    if(hint)hint.style.display='none';
+  }).catch(()=>{
+    // Browser blocked autoplay — show tap hint, play on first interaction
+    if(hint)hint.style.display='flex';
+    document.addEventListener('click',onFirstInteraction,{once:true});
+    document.addEventListener('touchstart',onFirstInteraction,{once:true});
+  });
+
   btn.addEventListener('click',(e)=>{
     e.stopPropagation();
     if(playing){audio.pause();setPlaying(false);}
-    else{unlocked=true;audio.play().then(()=>setPlaying(true)).catch(()=>{});}
+    else{startAudio();}
   });
 }
 
