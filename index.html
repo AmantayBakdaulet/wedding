@@ -6,24 +6,25 @@
   <title>Той шақыруы</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
 
   <style>
     /* ────────────────────────────────────────────
-       PALETTE  Old Money
-       #F8F5F2  cream
-       #C4AF9C  taupe
-       #537787  teal
-       #2C3D51  navy
+       PALETTE  Warm Elegant
+       #FFFFFF  white
+       #FAF8F5  cream
+       #C4A882  gold
+       #5C3D2E  brown
+       #2A1A0E  dark
     ──────────────────────────────────────────── */
     :root {
-      --cream : #F8F5F2;
       --white : #FFFFFF;
-      --taupe : #C4AF9C;
-      --teal  : #537787;
-      --navy  : #2C3D51;
-      --ink   : #1C2938;
-      --muted : #7A8E9A;
+      --cream : #FAF8F5;
+      --warm  : #DDD0C4;
+      --gold  : #C4A882;
+      --brown : #5C3D2E;
+      --dark  : #2A1A0E;
+      --muted : #9A8878;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,8 +32,9 @@
     body {
       font-family: 'PT Sans', sans-serif;
       font-weight: 400;
+      font-size: 18px;
       background: var(--cream);
-      color: var(--ink);
+      color: var(--dark);
       line-height: 1.75;
       overflow-x: hidden;
     }
@@ -50,51 +52,47 @@
       display: block;
       font-size: .6rem; font-weight: 500;
       letter-spacing: .3em; text-transform: uppercase;
-      color: var(--teal); margin-bottom: 18px;
+      color: var(--brown); margin-bottom: 18px;
     }
 
     /* ── Headings ────────────────────────────── */
     h2 {
-      font-family: 'PT Serif', serif;
+      font-family: 'Lora', serif;
       font-weight: 400;
-      font-size: clamp(2rem, 5vw, 2.8rem);
-      color: var(--navy); line-height: 1.2; margin-bottom: 36px;
+      font-size: clamp(2.4rem, 5vw, 3.2rem);
+      color: var(--dark); line-height: 1.2; margin-bottom: 36px;
     }
 
-    p { color: var(--ink); }
+    p { color: var(--dark); }
 
 
     /* ════════════════════════════════════════════
        ORNAMENT COMPONENTS
     ════════════════════════════════════════════ */
 
-    /* 1. Classic diamond-rule divider */
     .orn-rule {
       display: flex; align-items: center; justify-content: center;
       gap: 0; margin-bottom: 44px;
     }
     .orn-rule-line {
       height: 1px; flex: 1; max-width: 120px;
-      background: linear-gradient(to right, transparent, var(--taupe));
+      background: linear-gradient(to right, transparent, var(--gold));
     }
     .orn-rule-line.rev {
-      background: linear-gradient(to left, transparent, var(--taupe));
+      background: linear-gradient(to left, transparent, var(--gold));
     }
     .orn-rule-center {
       display: flex; align-items: center; gap: 6px;
       padding: 0 12px;
     }
-    .orn-rule-center .d  { width:7px; height:7px; background:var(--taupe); transform:rotate(45deg); }
-    .orn-rule-center .ds { width:4px; height:4px; background:var(--taupe); transform:rotate(45deg); opacity:.5; }
+    .orn-rule-center .d  { width:7px; height:7px; background:var(--gold); transform:rotate(45deg); }
+    .orn-rule-center .ds { width:4px; height:4px; background:var(--gold); transform:rotate(45deg); opacity:.5; }
 
-    /* 2. Botanical branch — inline SVG, colour injected by class */
     .orn-branch { display:block; margin: 0 auto 44px; max-width:380px; width:100%; }
 
-    /* 3. Section wave divider */
     .wave { display:block; line-height:0; overflow:hidden; }
     .wave svg { display:block; width:100%; }
 
-    /* 4. Geometric frame around invite text */
     .frame {
       position: relative;
       padding: 36px 32px;
@@ -105,20 +103,18 @@
       content: '';
       position: absolute;
       width: 28px; height: 28px;
-      border-color: var(--taupe);
+      border-color: var(--gold);
       border-style: solid;
-      opacity: .7;
+      opacity: .6;
     }
     .frame::before   { top:0;    left:0;  border-width:1px 0 0 1px; }
     .frame::after    { top:0;    right:0; border-width:1px 1px 0 0; }
     .frame > .fc::before { bottom:0; left:0;  border-width:0 0 1px 1px; }
     .frame > .fc::after  { bottom:0; right:0; border-width:0 1px 1px 0; }
 
-    /* 5. Pattern overlay on dark sections */
     .pat {
       position: absolute; inset: 0; pointer-events: none;
-      background-image:
-        radial-gradient(circle, rgba(196,175,156,.12) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(196,168,130,.1) 1px, transparent 1px);
       background-size: 28px 28px;
     }
 
@@ -127,95 +123,58 @@
        HERO
     ════════════════════════════════════════════ */
     #hero {
-      min-height: 100svh;
-      background: var(--navy);
+      height: 85vh;
       display: grid; place-items: center;
-      position: relative; overflow: hidden;
-      padding: 80px 24px 120px;
+      position: relative;
       text-align: center;
+      padding: 48px 24px;
+      overflow: hidden;
     }
-
-    /* Radial glow */
     #hero::before {
-      content: ''; position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(83,119,135,.35) 0%, transparent 65%),
-        radial-gradient(ellipse 60% 40% at 90% 90%,  rgba(44,61,81,.6)    0%, transparent 60%);
-      pointer-events: none;
+      content: '';
+      position: absolute; inset: -20px;
+      background: url('ref2.png') center/cover no-repeat;
+      transform: scale(1);
     }
 
-    /* Corner ornament frames */
-    .hero-frame {
-      position: absolute;
-      width: 90px; height: 90px;
-      pointer-events: none;
+.hero-body {
+      position: relative; z-index: 1;
     }
-    .hero-frame svg { width: 100%; height: 100%; }
-    .hf-tl { top: 24px;    left: 24px; }
-    .hf-tr { top: 24px;    right: 24px; transform: scaleX(-1); }
-    .hf-bl { bottom: 24px; left: 24px;  transform: scaleY(-1); }
-    .hf-br { bottom: 24px; right: 24px; transform: scale(-1); }
-
-    .hero-body { position: relative; z-index: 1; }
 
     .hero-eyebrow {
       display: block;
       font-size: .6rem; font-weight: 500;
       letter-spacing: .35em; text-transform: uppercase;
-      color: var(--taupe); margin-bottom: 40px;
+      color: var(--brown); margin-bottom: 28px;
     }
 
     .hero-names {
-      font-family: 'PT Serif', serif;
+      font-family: 'Lora', serif;
       font-weight: 400;
-      font-size: clamp(4.5rem, 16vw, 11rem);
-      line-height: .95; color: var(--cream);
+      font-size: clamp(3.5rem, 12vw, 9rem);
+      line-height: .95; color: var(--dark);
     }
     .hero-amp {
       display: block; font-style: italic;
-      font-size: .42em; color: var(--taupe);
-      margin: 14px 0 10px; letter-spacing: .05em;
+      font-size: .42em; color: var(--brown);
+      margin: 12px 0 8px; letter-spacing: .05em;
     }
 
-    /* Centre ornament between names and date */
     .hero-sep {
       display: flex; align-items: center; justify-content: center;
-      gap: 14px; margin: 30px auto 20px;
+      gap: 14px; margin: 24px auto 16px;
     }
     .hero-sep-line {
       width: 60px; height: 1px;
-      background: linear-gradient(to right, transparent, rgba(196,175,156,.6));
+      background: linear-gradient(to right, transparent, var(--gold));
     }
-    .hero-sep-line.rev { background: linear-gradient(to left, transparent, rgba(196,175,156,.6)); }
-    .hero-sep-diamond {
-      width: 8px; height: 8px;
-      background: var(--taupe); transform: rotate(45deg);
-    }
+    .hero-sep-line.rev { background: linear-gradient(to left, transparent, var(--gold)); }
+    .hero-sep-diamond { width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); }
 
     .hero-date {
-      font-family: 'PT Serif', serif;
-      font-style: italic;
-      font-size: clamp(1.15rem, 3vw, 1.6rem);
-      color: rgba(196,175,156,.85); letter-spacing: .05em;
-    }
-
-    .hero-scroll {
-      position: absolute; bottom: 36px; left: 50%;
-      transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-      animation: bob 2.4s ease-in-out infinite;
-    }
-    .hero-scroll span {
-      font-size: .58rem; letter-spacing: .22em;
-      text-transform: uppercase; color: rgba(196,175,156,.6);
-    }
-    .hero-scroll-bar {
-      width: 1px; height: 36px;
-      background: linear-gradient(to bottom, rgba(196,175,156,.5), transparent);
-    }
-    @keyframes bob {
-      0%,100% { transform: translateX(-50%) translateY(0); opacity: .6; }
-      50%      { transform: translateX(-50%) translateY(7px); opacity: 1; }
+      font-family: 'Lora', serif; font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: var(--brown); letter-spacing: .05em;
     }
 
 
@@ -225,25 +184,25 @@
     #invite { background: var(--white); }
 
     .invite-salut {
-      font-family: 'PT Serif', serif;
-      font-style: italic; font-size: 1.15rem;
-      color: var(--teal); display: block; margin-bottom: 28px;
+      font-family: 'Lora', serif;
+      font-style: italic; font-weight: 400; font-size: 2.2rem;
+      color: var(--brown); display: block; margin-bottom: 28px;
     }
 
     .invite-body {
-      font-family: 'PT Serif', serif;
-      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
-      line-height: 2; color: var(--ink);
+      font-family: 'Lora', serif;
+      font-size: clamp(1.3rem, 2.8vw, 1.65rem);
+      line-height: 2; color: var(--dark);
     }
 
     .invite-owner-label {
       font-size: .6rem; font-weight: 500;
       letter-spacing: .24em; text-transform: uppercase;
-      color: var(--teal); display: block; margin-bottom: 10px;
+      color: var(--brown); display: block; margin-bottom: 10px;
     }
     .invite-owners {
-      font-family: 'PT Serif', serif;
-      font-size: 1.7rem; color: var(--navy);
+      font-family: 'Lora', serif;
+      font-size: 2rem; color: var(--dark);
     }
 
 
@@ -252,10 +211,7 @@
     ════════════════════════════════════════════ */
     #venue { background: var(--cream); }
 
-    .venue-cards {
-      display: grid; gap: 16px;
-      max-width: 480px; margin: 0 auto;
-    }
+    .venue-cards { display: grid; gap: 16px; max-width: 480px; margin: 0 auto; }
 
     .vc {
       background: var(--white);
@@ -263,21 +219,20 @@
       padding: 28px 26px 28px 36px;
       text-align: left;
     }
-    /* left accent bar */
     .vc::before {
       content: ''; position: absolute;
       left: 0; top: 0; bottom: 0; width: 3px;
-      background: linear-gradient(to bottom, var(--navy), var(--teal));
+      background: linear-gradient(to bottom, var(--brown), var(--gold));
     }
 
     .vc-lbl {
       font-size: .58rem; font-weight: 500;
       letter-spacing: .22em; text-transform: uppercase;
-      color: var(--teal); display: block; margin-bottom: 10px;
+      color: var(--brown); display: block; margin-bottom: 10px;
     }
     .vc-val {
-      font-family: 'PT Serif', serif;
-      font-size: 1.45rem; color: var(--navy); line-height: 1.5;
+      font-family: 'Lora', serif;
+      font-size: 1.65rem; color: var(--dark); line-height: 1.5;
       white-space: pre-line;
     }
 
@@ -286,28 +241,79 @@
       margin-top: 14px;
       font-size: .67rem; font-weight: 500;
       letter-spacing: .14em; text-transform: uppercase;
-      color: var(--teal); text-decoration: none;
-      border-bottom: 1px solid var(--taupe); padding-bottom: 2px;
+      color: var(--brown); text-decoration: none;
+      border-bottom: 1px solid var(--gold); padding-bottom: 2px;
       transition: color .2s, border-color .2s;
     }
-    .map-link:hover { color: var(--navy); border-color: var(--navy); }
+    .map-link:hover { color: var(--dark); border-color: var(--dark); }
     .map-link svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+
+    /* ════════════════════════════════════════════
+       CALENDAR
+    ════════════════════════════════════════════ */
+    #calendar { background: var(--white); }
+
+    .cal-wrap { max-width: 340px; margin: 0 auto; }
+
+    .cal-month {
+      font-family: 'Lora', serif; font-style: italic; font-weight: 600;
+      font-size: 2.4rem; color: var(--brown);
+      margin-bottom: 24px; line-height: 1;
+    }
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+
+    .cal-dn {
+      font-size: .55rem; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); text-align: center;
+      padding-bottom: 8px;
+    }
+
+    .cal-d {
+      aspect-ratio: 1;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Lora', serif;
+      font-size: 1rem; color: var(--dark);
+      border-radius: 50%;
+      transition: background .2s;
+    }
+
+    .cal-d.cal-wedding {
+      background: var(--brown);
+      color: var(--cream);
+      font-weight: 600;
+      position: relative;
+    }
+    /* small diamond below wedding date */
+    .cal-d.cal-wedding::after {
+      content: '♥';
+      position: absolute; bottom: -18px; left: 50%;
+      transform: translateX(-50%);
+      font-size: .55rem; color: var(--gold);
+    }
+
+    .cal-d.cal-muted { color: var(--warm); }
 
 
     /* ════════════════════════════════════════════
        DETAILS (dark)
     ════════════════════════════════════════════ */
     #details {
-      background: var(--navy);
+      background: var(--dark);
       position: relative; overflow: hidden;
     }
     #details h2 { color: var(--cream); }
-    #details .cap { color: var(--taupe); }
-    /* diamond rule colours on dark */
-    #details .orn-rule-line     { background: linear-gradient(to right, transparent, rgba(196,175,156,.4)); }
-    #details .orn-rule-line.rev { background: linear-gradient(to left,  transparent, rgba(196,175,156,.4)); }
-    #details .orn-rule-center .d  { background: var(--taupe); }
-    #details .orn-rule-center .ds { background: var(--taupe); }
+    #details .cap { color: rgba(196,168,130,.7); }
+    #details .orn-rule-line     { background: linear-gradient(to right, transparent, rgba(196,168,130,.4)); }
+    #details .orn-rule-line.rev { background: linear-gradient(to left,  transparent, rgba(196,168,130,.4)); }
+    #details .orn-rule-center .d  { background: var(--gold); }
+    #details .orn-rule-center .ds { background: var(--gold); }
 
     .det-grid {
       display: flex; flex-wrap: wrap; gap: 14px;
@@ -316,48 +322,26 @@
     }
     .det-pill {
       flex: 1 1 200px;
-      border: 1px solid rgba(196,175,156,.2);
+      border: 1px solid rgba(196,168,130,.2);
       padding: 24px 22px; text-align: left;
       position: relative;
     }
-    /* small corner gem on each card */
     .det-pill::before {
       content: '';
       position: absolute; top: -4px; right: -4px;
       width: 8px; height: 8px;
-      background: var(--taupe); transform: rotate(45deg);
+      background: var(--gold); transform: rotate(45deg);
       opacity: .6;
     }
     .det-lbl {
       font-size: .58rem; font-weight: 500;
       letter-spacing: .22em; text-transform: uppercase;
-      color: var(--taupe); display: block; margin-bottom: 8px;
+      color: rgba(196,168,130,.7); display: block; margin-bottom: 8px;
     }
     .det-val {
-      font-family: 'PT Serif', serif;
+      font-family: 'Lora', serif;
       font-size: 1.1rem; color: var(--cream); line-height: 1.5;
     }
-
-    /* Halal banner */
-    .halal {
-      max-width: 480px; margin: 0 auto;
-      background: var(--teal);
-      padding: 20px 24px;
-      display: flex; align-items: flex-start; gap: 14px; text-align: left;
-      position: relative; overflow: hidden;
-    }
-    .halal::after {
-      content: '☪';
-      position: absolute; right: 16px; bottom: -8px;
-      font-size: 5rem; opacity: .06; color: #fff;
-      line-height: 1; pointer-events: none;
-    }
-    .halal-icon { font-size: 1.4rem; flex-shrink: 0; color: #fff; line-height: 1.4; }
-    .halal-title {
-      font-family: 'PT Serif', serif;
-      font-size: 1.1rem; color: #fff !important; margin-bottom: 3px;
-    }
-    .halal-sub { font-size: .8rem; color: rgba(255,255,255,.8) !important; font-weight:300; line-height:1.5; }
 
 
     /* ════════════════════════════════════════════
@@ -366,22 +350,21 @@
     #message { background: var(--white); }
 
     .msg-body {
-      font-family: 'PT Serif', serif;
-      font-style: italic;
-      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
-      line-height: 2; color: var(--ink);
+      font-family: 'Lora', serif; font-style: italic;
+      font-size: clamp(1.3rem, 2.8vw, 1.65rem);
+      line-height: 2; color: var(--dark);
       max-width: 480px; margin: 0 auto 40px;
     }
     .msg-sign-lbl {
       font-size: .6rem; font-weight: 500;
       letter-spacing: .22em; text-transform: uppercase;
-      color: var(--teal); display: block; margin-bottom: 10px;
+      color: var(--brown); display: block; margin-bottom: 10px;
     }
     .msg-names {
-      font-family: 'PT Serif', serif;
-      font-style: italic; font-size: 2.6rem; color: var(--navy);
+      font-family: 'Lora', serif; font-style: italic;
+      font-size: 3rem; color: var(--dark);
     }
-    .msg-amp { color: var(--taupe); }
+    .msg-amp { color: var(--gold); }
 
 
     /* ════════════════════════════════════════════
@@ -400,58 +383,58 @@
       display: block;
       font-size: .62rem; font-weight: 500;
       letter-spacing: .2em; text-transform: uppercase;
-      color: var(--navy); margin-bottom: 9px;
+      color: var(--dark); margin-bottom: 9px;
     }
-    .req::after { content: ' *'; color: var(--taupe); }
+    .req::after { content: ' *'; color: var(--gold); }
 
     input[type="text"], input[type="number"] {
       width: 100%; background: var(--white);
-      border: 1px solid var(--taupe);
+      border: 1px solid var(--warm);
       padding: 13px 16px;
       font-family: 'PT Sans', sans-serif;
-      font-size: .95rem; font-weight: 400; color: var(--ink);
+      font-size: .95rem; font-weight: 400; color: var(--dark);
       outline: none; border-radius: 0;
       transition: border-color .2s; -webkit-appearance: none;
     }
-    input:focus { border-color: var(--navy); }
+    input:focus { border-color: var(--brown); }
 
     .radios { display: flex; gap: 10px; flex-wrap: wrap; }
     .rl {
       flex: 1 1 150px;
       display: flex; align-items: center; gap: 10px;
-      cursor: pointer; border: 1px solid var(--taupe);
+      cursor: pointer; border: 1px solid var(--warm);
       padding: 12px 16px;
-      font-size: .9rem; font-weight: 400; color: var(--ink);
+      font-size: .9rem; font-weight: 400; color: var(--dark);
       transition: border-color .2s, background .2s;
     }
-    .rl:has(input:checked) { border-color: var(--navy); background: rgba(44,61,81,.05); }
+    .rl:has(input:checked) { border-color: var(--brown); background: rgba(92,61,46,.05); }
     .rl input[type="radio"] { display: none; }
     .rb {
       width: 17px; height: 17px;
-      border: 1px solid var(--taupe); border-radius: 50%;
+      border: 1px solid var(--warm); border-radius: 50%;
       display: grid; place-items: center; flex-shrink: 0;
       transition: border-color .2s;
     }
     .rb::after {
       content: ''; width: 8px; height: 8px;
-      border-radius: 50%; background: var(--navy);
+      border-radius: 50%; background: var(--brown);
       opacity: 0; transition: opacity .2s;
     }
-    .rl:has(input:checked) .rb { border-color: var(--navy); }
+    .rl:has(input:checked) .rb { border-color: var(--brown); }
     .rl:has(input:checked) .rb::after { opacity: 1; }
 
     #fg-count { display: none; }
 
     .btn-submit {
       width: 100%; padding: 15px;
-      background: var(--navy); color: var(--cream);
+      background: var(--dark); color: var(--cream);
       border: none;
       font-family: 'PT Sans', sans-serif;
       font-size: .7rem; font-weight: 500;
       letter-spacing: .26em; text-transform: uppercase;
       cursor: pointer; transition: background .2s, opacity .2s; margin-top: 8px;
     }
-    .btn-submit:hover:not(:disabled) { background: var(--teal); }
+    .btn-submit:hover:not(:disabled) { background: var(--brown); }
     .btn-submit:disabled { opacity: .5; cursor: not-allowed; }
 
     #form-err {
@@ -463,11 +446,11 @@
 
     #rsvp-ok { display: none; text-align: center; padding: 48px 0; }
     .ok-icon {
-      display: block; font-family: 'PT Serif', serif;
-      font-size: 3rem; color: var(--taupe);
+      display: block; font-family: 'Lora', serif;
+      font-size: 3rem; color: var(--gold);
       margin-bottom: 14px; line-height: 1;
     }
-    .ok-h { font-family:'PT Serif',serif; font-size:2rem; color:var(--navy); margin-bottom:10px; }
+    .ok-h { font-family:'Cormorant Garamond',serif; font-size:2rem; color:var(--dark); margin-bottom:10px; }
     .ok-p { font-size:.9rem; color:var(--muted); }
 
 
@@ -475,19 +458,35 @@
        FOOTER
     ════════════════════════════════════════════ */
     footer {
-      background: var(--navy);
+      background: var(--dark);
       text-align: center; padding: 52px 24px;
       position: relative;
     }
-    .ft-ornament { display: block; margin: 0 auto 24px; opacity: .5; }
+    .ft-ornament { display: block; margin: 0 auto 24px; opacity: .45; }
     .ft-names {
       display: block;
-      font-family: 'PT Serif', serif;
-      font-style: italic; font-size: 2.2rem;
+      font-family: 'Lora', serif; font-style: italic;
+      font-size: 2.8rem;
       color: var(--cream); margin-bottom: 10px;
     }
-    .ft-date { font-size: .7rem; letter-spacing: .16em; color: var(--taupe); }
+    .ft-date { font-size: .7rem; letter-spacing: .16em; color: var(--gold); opacity: .7; }
 
+
+    /* ════════════════════════════════════════════
+       PHOTO STRIPS
+    ════════════════════════════════════════════ */
+    .photo-strip {
+      width: 100%; overflow: hidden;
+      line-height: 0;
+    }
+    .photo-strip img {
+      width: 100%; height: 380px;
+      object-fit: cover; object-position: center;
+      display: block;
+    }
+    @media (max-width: 600px) {
+      .photo-strip img { height: 260px; }
+    }
 
     /* ════════════════════════════════════════════
        MUSIC BUTTON
@@ -495,13 +494,13 @@
     #music-btn {
       position: fixed; bottom: 26px; right: 22px; z-index: 999;
       width: 46px; height: 46px;
-      background: var(--navy); border: 1px solid rgba(196,175,156,.5);
+      background: var(--dark); border: 1px solid rgba(196,168,130,.5);
       border-radius: 50%; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 16px rgba(44,61,81,.35);
+      box-shadow: 0 4px 16px rgba(42,26,14,.35);
       transition: background .2s, transform .15s;
     }
-    #music-btn:hover { background: var(--teal); transform: scale(1.08); }
+    #music-btn:hover { background: var(--brown); transform: scale(1.08); }
     #music-btn svg {
       width: 18px; height: 18px;
       stroke: var(--cream); fill: none;
@@ -522,16 +521,16 @@
     #music-hint {
       display: none;
       position: fixed; bottom: 84px; right: 16px; z-index: 998;
-      background: var(--navy); color: var(--cream);
-      border: 1px solid rgba(196,175,156,.4);
+      background: var(--dark); color: var(--cream);
+      border: 1px solid rgba(196,168,130,.4);
       padding: 10px 14px; gap: 8px;
       align-items: center;
       font-size: .72rem; letter-spacing: .05em;
-      box-shadow: 0 4px 16px rgba(44,61,81,.3);
+      box-shadow: 0 4px 16px rgba(42,26,14,.3);
       animation: hintin .4s ease;
       cursor: pointer;
     }
-    #music-hint svg { stroke: var(--taupe); flex-shrink: 0; }
+    #music-hint svg { stroke: var(--gold); flex-shrink: 0; }
     @keyframes hintin { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
   </style>
 </head>
@@ -541,30 +540,6 @@
      HERO
 ══════════════════════════════════════════ -->
 <section id="hero">
-  <!-- dot pattern -->
-  <div class="pat"></div>
-
-  <!-- corner ornament frames -->
-  <div class="hero-frame hf-tl">
-    <svg viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M2 2 L2 38 M2 2 L38 2" stroke="#C4AF9C" stroke-width=".8" opacity=".6"/>
-      <path d="M2 2 L18 18" stroke="#C4AF9C" stroke-width=".5" opacity=".3"/>
-      <rect x="17" y="17" width="5" height="5" transform="rotate(45 17 17)" fill="#C4AF9C" opacity=".4"/>
-      <circle cx="2" cy="2" r="2" fill="#C4AF9C" opacity=".5"/>
-      <circle cx="2" cy="38" r="1.5" fill="#C4AF9C" opacity=".3"/>
-      <circle cx="38" cy="2" r="1.5" fill="#C4AF9C" opacity=".3"/>
-    </svg>
-  </div>
-  <div class="hero-frame hf-tr">
-    <svg viewBox="0 0 90 90" fill="none"><path d="M2 2 L2 38 M2 2 L38 2" stroke="#C4AF9C" stroke-width=".8" opacity=".6"/><path d="M2 2 L18 18" stroke="#C4AF9C" stroke-width=".5" opacity=".3"/><rect x="17" y="17" width="5" height="5" transform="rotate(45 17 17)" fill="#C4AF9C" opacity=".4"/><circle cx="2" cy="2" r="2" fill="#C4AF9C" opacity=".5"/><circle cx="2" cy="38" r="1.5" fill="#C4AF9C" opacity=".3"/><circle cx="38" cy="2" r="1.5" fill="#C4AF9C" opacity=".3"/></svg>
-  </div>
-  <div class="hero-frame hf-bl">
-    <svg viewBox="0 0 90 90" fill="none"><path d="M2 2 L2 38 M2 2 L38 2" stroke="#C4AF9C" stroke-width=".8" opacity=".6"/><path d="M2 2 L18 18" stroke="#C4AF9C" stroke-width=".5" opacity=".3"/><rect x="17" y="17" width="5" height="5" transform="rotate(45 17 17)" fill="#C4AF9C" opacity=".4"/><circle cx="2" cy="2" r="2" fill="#C4AF9C" opacity=".5"/><circle cx="2" cy="38" r="1.5" fill="#C4AF9C" opacity=".3"/><circle cx="38" cy="2" r="1.5" fill="#C4AF9C" opacity=".3"/></svg>
-  </div>
-  <div class="hero-frame hf-br">
-    <svg viewBox="0 0 90 90" fill="none"><path d="M2 2 L2 38 M2 2 L38 2" stroke="#C4AF9C" stroke-width=".8" opacity=".6"/><path d="M2 2 L18 18" stroke="#C4AF9C" stroke-width=".5" opacity=".3"/><rect x="17" y="17" width="5" height="5" transform="rotate(45 17 17)" fill="#C4AF9C" opacity=".4"/><circle cx="2" cy="2" r="2" fill="#C4AF9C" opacity=".5"/><circle cx="2" cy="38" r="1.5" fill="#C4AF9C" opacity=".3"/><circle cx="38" cy="2" r="1.5" fill="#C4AF9C" opacity=".3"/></svg>
-  </div>
-
   <div class="hero-body">
     <span class="hero-eyebrow fade" id="hero-eyebrow"></span>
     <h1 class="hero-names fade">
@@ -579,19 +554,7 @@
     </div>
     <p class="hero-date fade" id="hero-date"></p>
   </div>
-
-  <div class="hero-scroll" aria-hidden="true">
-    <span id="scroll-lbl"></span>
-    <div class="hero-scroll-bar"></div>
-  </div>
 </section>
-
-<!-- wave: navy → white -->
-<div class="wave" style="background:var(--navy)">
-  <svg viewBox="0 0 1440 70" preserveAspectRatio="none" height="70" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,0 C360,70 1080,70 1440,0 L1440,70 L0,70 Z" fill="#FFFFFF"/>
-  </svg>
-</div>
 
 
 <!-- ══════════════════════════════════════════
@@ -601,32 +564,24 @@
   <div class="inner">
     <span class="invite-salut fade" id="invite-salut"></span>
 
-    <!-- botanical branch ornament -->
     <svg class="orn-branch fade" viewBox="0 0 400 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- center diamond cluster -->
-      <rect x="197" y="22" width="7" height="7" transform="rotate(45 197 22)" fill="#C4AF9C"/>
-      <rect x="190" y="25" width="4" height="4" transform="rotate(45 190 25)" fill="#C4AF9C" opacity=".4"/>
-      <rect x="206" y="25" width="4" height="4" transform="rotate(45 206 25)" fill="#C4AF9C" opacity=".4"/>
-      <!-- left stem -->
-      <path d="M193 25.5 C170 25 130 24 80 28" stroke="#C4AF9C" stroke-width=".9" stroke-linecap="round"/>
-      <!-- left leaves -->
-      <path d="M162 24.5 C158 16 150 14 147 18 C150 23 158 24 162 24.5Z" fill="#C4AF9C" opacity=".55"/>
-      <path d="M138 25 C135 17 127 15 124 19 C127 24 135 25 138 25Z" fill="#C4AF9C" opacity=".45"/>
-      <path d="M162 26 C165 18 172 16 175 20 C172 25 165 26 162 26Z" fill="#C4AF9C" opacity=".35"/>
-      <!-- left tip -->
-      <path d="M80 28 C64 24 50 20 38 23" stroke="#C4AF9C" stroke-width=".7" stroke-linecap="round"/>
-      <path d="M80 28 C66 32 52 34 42 31" stroke="#C4AF9C" stroke-width=".7" stroke-linecap="round"/>
-      <circle cx="80" cy="28" r="2" fill="#C4AF9C" opacity=".5"/>
-      <!-- right stem -->
-      <path d="M207 25.5 C230 25 270 24 320 28" stroke="#C4AF9C" stroke-width=".9" stroke-linecap="round"/>
-      <!-- right leaves -->
-      <path d="M238 24.5 C242 16 250 14 253 18 C250 23 242 24 238 24.5Z" fill="#C4AF9C" opacity=".55"/>
-      <path d="M262 25 C265 17 273 15 276 19 C273 24 265 25 262 25Z" fill="#C4AF9C" opacity=".45"/>
-      <path d="M238 26 C235 18 228 16 225 20 C228 25 235 26 238 26Z" fill="#C4AF9C" opacity=".35"/>
-      <!-- right tip -->
-      <path d="M320 28 C336 24 350 20 362 23" stroke="#C4AF9C" stroke-width=".7" stroke-linecap="round"/>
-      <path d="M320 28 C334 32 348 34 358 31" stroke="#C4AF9C" stroke-width=".7" stroke-linecap="round"/>
-      <circle cx="320" cy="28" r="2" fill="#C4AF9C" opacity=".5"/>
+      <rect x="197" y="22" width="7" height="7" transform="rotate(45 197 22)" fill="#C4A882"/>
+      <rect x="190" y="25" width="4" height="4" transform="rotate(45 190 25)" fill="#C4A882" opacity=".4"/>
+      <rect x="206" y="25" width="4" height="4" transform="rotate(45 206 25)" fill="#C4A882" opacity=".4"/>
+      <path d="M193 25.5 C170 25 130 24 80 28" stroke="#C4A882" stroke-width=".9" stroke-linecap="round"/>
+      <path d="M162 24.5 C158 16 150 14 147 18 C150 23 158 24 162 24.5Z" fill="#C4A882" opacity=".55"/>
+      <path d="M138 25 C135 17 127 15 124 19 C127 24 135 25 138 25Z" fill="#C4A882" opacity=".45"/>
+      <path d="M162 26 C165 18 172 16 175 20 C172 25 165 26 162 26Z" fill="#C4A882" opacity=".35"/>
+      <path d="M80 28 C64 24 50 20 38 23" stroke="#C4A882" stroke-width=".7" stroke-linecap="round"/>
+      <path d="M80 28 C66 32 52 34 42 31" stroke="#C4A882" stroke-width=".7" stroke-linecap="round"/>
+      <circle cx="80" cy="28" r="2" fill="#C4A882" opacity=".5"/>
+      <path d="M207 25.5 C230 25 270 24 320 28" stroke="#C4A882" stroke-width=".9" stroke-linecap="round"/>
+      <path d="M238 24.5 C242 16 250 14 253 18 C250 23 242 24 238 24.5Z" fill="#C4A882" opacity=".55"/>
+      <path d="M262 25 C265 17 273 15 276 19 C273 24 265 25 262 25Z" fill="#C4A882" opacity=".45"/>
+      <path d="M238 26 C235 18 228 16 225 20 C228 25 235 26 238 26Z" fill="#C4A882" opacity=".35"/>
+      <path d="M320 28 C336 24 350 20 362 23" stroke="#C4A882" stroke-width=".7" stroke-linecap="round"/>
+      <path d="M320 28 C334 32 348 34 358 31" stroke="#C4A882" stroke-width=".7" stroke-linecap="round"/>
+      <circle cx="320" cy="28" r="2" fill="#C4A882" opacity=".5"/>
     </svg>
 
     <div class="frame fade">
@@ -647,18 +602,15 @@
   </div>
 </section>
 
-<!-- wave: white → cream -->
-<div class="wave" style="background:var(--white)">
-  <svg viewBox="0 0 1440 50" preserveAspectRatio="none" height="50" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,50 C480,0 960,0 1440,50 L1440,50 L0,50 Z" fill="#F8F5F2"/>
-  </svg>
+<div class="photo-strip">
+  <img src="photo6.png" alt="" loading="lazy" />
 </div>
 
 
 <!-- ══════════════════════════════════════════
      VENUE
 ══════════════════════════════════════════ -->
-<section id="venue" class="sec" style="padding-top:56px">
+<section id="venue" class="sec" style="padding-top:72px; background:var(--cream)">
   <div class="inner">
     <span class="cap fade" id="venue-cap"></span>
 
@@ -687,35 +639,76 @@
   </div>
 </section>
 
-<!-- wave: cream → navy (angled) -->
+<!-- wave: cream → white -->
 <div class="wave" style="background:var(--cream)">
-  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" height="80" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,80 L720,0 L1440,80 L1440,80 L0,80 Z" fill="#2C3D51"/>
+  <svg viewBox="0 0 1440 50" preserveAspectRatio="none" height="50" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 C480,50 960,50 1440,0 L1440,50 L0,50 Z" fill="#FFFFFF"/>
   </svg>
 </div>
 
 
 <!-- ══════════════════════════════════════════
-     DETAILS (dark)
+     CALENDAR
 ══════════════════════════════════════════ -->
-<section id="details" class="sec" style="padding-top:56px">
-  <div class="pat"></div>
-  <div class="inner" style="position:relative;z-index:1">
-    <div class="halal fade" id="halal">
-      <span class="halal-icon">☪</span>
-      <div>
-        <p class="halal-title" id="halal-title"></p>
-        <p class="halal-sub"   id="halal-sub"></p>
+<section id="calendar" class="sec" style="padding-top:56px; padding-bottom:72px">
+  <div class="inner">
+    <span class="cap fade" id="cal-cap"></span>
+
+    <div class="orn-rule fade">
+      <div class="orn-rule-line"></div>
+      <div class="orn-rule-center">
+        <div class="ds"></div><div class="d"></div><div class="ds"></div>
+      </div>
+      <div class="orn-rule-line rev"></div>
+    </div>
+
+    <div class="cal-wrap fade">
+      <p class="cal-month" id="cal-month"></p>
+      <div class="cal-grid">
+        <!-- day names -->
+        <div class="cal-dn" id="cdn-1"></div>
+        <div class="cal-dn" id="cdn-2"></div>
+        <div class="cal-dn" id="cdn-3"></div>
+        <div class="cal-dn" id="cdn-4"></div>
+        <div class="cal-dn" id="cdn-5"></div>
+        <div class="cal-dn" id="cdn-6"></div>
+        <div class="cal-dn" id="cdn-7"></div>
+        <!-- July 2026: 1st = Wednesday (col index 2, 0-based Mon) -->
+        <!-- empty Mon, Tue -->
+        <div class="cal-d"></div>
+        <div class="cal-d"></div>
+        <!-- 1–5 -->
+        <div class="cal-d">1</div><div class="cal-d">2</div><div class="cal-d">3</div><div class="cal-d">4</div><div class="cal-d">5</div>
+        <!-- 6–12 -->
+        <div class="cal-d">6</div><div class="cal-d">7</div><div class="cal-d">8</div><div class="cal-d">9</div><div class="cal-d">10</div><div class="cal-d">11</div><div class="cal-d">12</div>
+        <!-- 13–19, 17 = wedding -->
+        <div class="cal-d">13</div><div class="cal-d">14</div><div class="cal-d">15</div><div class="cal-d">16</div><div class="cal-d cal-wedding">17</div><div class="cal-d">18</div><div class="cal-d">19</div>
+        <!-- 20–26 -->
+        <div class="cal-d">20</div><div class="cal-d">21</div><div class="cal-d">22</div><div class="cal-d">23</div><div class="cal-d">24</div><div class="cal-d">25</div><div class="cal-d">26</div>
+        <!-- 27–31 + empty -->
+        <div class="cal-d">27</div><div class="cal-d">28</div><div class="cal-d">29</div><div class="cal-d">30</div><div class="cal-d">31</div><div class="cal-d"></div><div class="cal-d"></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- wave: navy → white -->
-<div class="wave" style="background:var(--navy)">
-  <svg viewBox="0 0 1440 70" preserveAspectRatio="none" height="70" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,70 C360,0 1080,0 1440,70 L1440,70 L0,70 Z" fill="#FFFFFF"/>
+<!-- wave: white → dark (angled) -->
+<div class="wave" style="background:var(--white)">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" height="80" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,80 L720,0 L1440,80 L1440,80 L0,80 Z" fill="#2A1A0E"/>
   </svg>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     DETAILS (dark) — empty, kept for structure
+══════════════════════════════════════════ -->
+<section id="details" class="sec" style="padding-top:56px; padding-bottom:0; min-height:0">
+  <div class="pat"></div>
+</section>
+
+<div class="photo-strip">
+  <img src="photo3.png" alt="" loading="lazy" />
 </div>
 
 
@@ -724,19 +717,18 @@
 ══════════════════════════════════════════ -->
 <section id="message" class="sec" style="padding-top:52px">
   <div class="inner">
-    <!-- botanical ornament variant 2 (smaller, top only) -->
     <svg class="orn-branch fade" viewBox="0 0 340 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width:280px">
-      <rect x="168" y="15" width="6" height="6" transform="rotate(45 168 15)" fill="#C4AF9C"/>
-      <path d="M165 18 C148 18 115 17 72 21" stroke="#C4AF9C" stroke-width=".8" stroke-linecap="round"/>
-      <path d="M136 17 C133 11 126 9 124 13 C127 17 133 18 136 17Z" fill="#C4AF9C" opacity=".5"/>
-      <path d="M108 18 C105 12 98 10 96 14 C99 18 105 19 108 18Z" fill="#C4AF9C" opacity=".45"/>
-      <path d="M72 21 C58 18 44 14 34 17" stroke="#C4AF9C" stroke-width=".7" stroke-linecap="round"/>
-      <path d="M72 21 C59 25 45 27 36 24" stroke="#C4AF9C" stroke-width=".7" stroke-linecap="round"/>
-      <path d="M175 18 C192 18 225 17 268 21" stroke="#C4AF9C" stroke-width=".8" stroke-linecap="round"/>
-      <path d="M204 17 C207 11 214 9 216 13 C213 17 207 18 204 17Z" fill="#C4AF9C" opacity=".5"/>
-      <path d="M232 18 C235 12 242 10 244 14 C241 18 235 19 232 18Z" fill="#C4AF9C" opacity=".45"/>
-      <path d="M268 21 C282 18 296 14 306 17" stroke="#C4AF9C" stroke-width=".7" stroke-linecap="round"/>
-      <path d="M268 21 C281 25 295 27 304 24" stroke="#C4AF9C" stroke-width=".7" stroke-linecap="round"/>
+      <rect x="168" y="15" width="6" height="6" transform="rotate(45 168 15)" fill="#C4A882"/>
+      <path d="M165 18 C148 18 115 17 72 21" stroke="#C4A882" stroke-width=".8" stroke-linecap="round"/>
+      <path d="M136 17 C133 11 126 9 124 13 C127 17 133 18 136 17Z" fill="#C4A882" opacity=".5"/>
+      <path d="M108 18 C105 12 98 10 96 14 C99 18 105 19 108 18Z" fill="#C4A882" opacity=".45"/>
+      <path d="M72 21 C58 18 44 14 34 17" stroke="#C4A882" stroke-width=".7" stroke-linecap="round"/>
+      <path d="M72 21 C59 25 45 27 36 24" stroke="#C4A882" stroke-width=".7" stroke-linecap="round"/>
+      <path d="M175 18 C192 18 225 17 268 21" stroke="#C4A882" stroke-width=".8" stroke-linecap="round"/>
+      <path d="M204 17 C207 11 214 9 216 13 C213 17 207 18 204 17Z" fill="#C4A882" opacity=".5"/>
+      <path d="M232 18 C235 12 242 10 244 14 C241 18 235 19 232 18Z" fill="#C4A882" opacity=".45"/>
+      <path d="M268 21 C282 18 296 14 306 17" stroke="#C4A882" stroke-width=".7" stroke-linecap="round"/>
+      <path d="M268 21 C281 25 295 27 304 24" stroke="#C4A882" stroke-width=".7" stroke-linecap="round"/>
     </svg>
 
     <p class="msg-body fade" id="msg-body"></p>
@@ -761,7 +753,7 @@
 <!-- wave: white → cream -->
 <div class="wave" style="background:var(--white)">
   <svg viewBox="0 0 1440 50" preserveAspectRatio="none" height="50" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,0 C480,50 960,50 1440,0 L1440,50 L0,50 Z" fill="#F8F5F2"/>
+    <path d="M0,0 C480,50 960,50 1440,0 L1440,50 L0,50 Z" fill="#FAF8F5"/>
   </svg>
 </div>
 
@@ -809,10 +801,10 @@
   </div>
 </section>
 
-<!-- wave: cream → navy -->
+<!-- wave: cream → dark -->
 <div class="wave" style="background:var(--cream)">
   <svg viewBox="0 0 1440 60" preserveAspectRatio="none" height="60" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z" fill="#2C3D51"/>
+    <path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z" fill="#2A1A0E"/>
   </svg>
 </div>
 
@@ -821,15 +813,14 @@
      FOOTER
 ══════════════════════════════════════════ -->
 <footer>
-  <!-- footer top botanical ornament -->
   <svg class="ft-ornament" viewBox="0 0 260 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="200">
-    <rect x="128" y="12" width="6" height="6" transform="rotate(45 128 12)" fill="#C4AF9C" opacity=".6"/>
-    <path d="M125 15 C108 15 80 14 50 17" stroke="#C4AF9C" stroke-width=".7" stroke-linecap="round" opacity=".5"/>
-    <path d="M99 14 C96 8 90 6 88 10 C91 14 96 15 99 14Z" fill="#C4AF9C" opacity=".4"/>
-    <path d="M50 17 C38 14 26 12 18 14" stroke="#C4AF9C" stroke-width=".6" stroke-linecap="round" opacity=".5"/>
-    <path d="M131 15 C148 15 176 14 210 17" stroke="#C4AF9C" stroke-width=".7" stroke-linecap="round" opacity=".5"/>
-    <path d="M161 14 C164 8 170 6 172 10 C169 14 164 15 161 14Z" fill="#C4AF9C" opacity=".4"/>
-    <path d="M210 17 C222 14 234 12 242 14" stroke="#C4AF9C" stroke-width=".6" stroke-linecap="round" opacity=".5"/>
+    <rect x="128" y="12" width="6" height="6" transform="rotate(45 128 12)" fill="#C4A882" opacity=".6"/>
+    <path d="M125 15 C108 15 80 14 50 17" stroke="#C4A882" stroke-width=".7" stroke-linecap="round" opacity=".5"/>
+    <path d="M99 14 C96 8 90 6 88 10 C91 14 96 15 99 14Z" fill="#C4A882" opacity=".4"/>
+    <path d="M50 17 C38 14 26 12 18 14" stroke="#C4A882" stroke-width=".6" stroke-linecap="round" opacity=".5"/>
+    <path d="M131 15 C148 15 176 14 210 17" stroke="#C4A882" stroke-width=".7" stroke-linecap="round" opacity=".5"/>
+    <path d="M161 14 C164 8 170 6 172 10 C169 14 164 15 161 14Z" fill="#C4A882" opacity=".4"/>
+    <path d="M210 17 C222 14 234 12 242 14" stroke="#C4A882" stroke-width=".6" stroke-linecap="round" opacity=".5"/>
   </svg>
   <span class="ft-names" id="ft-names"></span>
   <span class="ft-date"  id="ft-date"></span>
@@ -857,21 +848,22 @@ const CONFIG = {
   bride: 'Тоғжан',
   date:  '17.07.2026',
   owners:       'Сабира апа & Ербол & Гульбану',
-  venueTime:    '18:00',
+  venueTime:    '19:00',
   venueAddress: 'Golden Hall\nТараз, Ташкентская 268',
   venueMapUrl:  'https://go.2gis.com/aphld',
   ui: {
     heroEyebrow: 'Тойға шақыру',
     scrollLbl:   'Төмен',
     inviteSalut: 'Құрметті қонақтар!',
-    inviteBody:  'Сіздерді ұлымыз Бақдәулет пен келініміз Тоғжанның шаңырақ көтеру тойына арналған салтанатты ақ дастарханымыздың қадірлі қонағы болуға шақырамыз.',
+    inviteBody:  'Сіздерді Бақдәулет пен Тоғжанның шаңырақ көтеру тойына арналған салтанатты ақ дастарханымыздың қадірлі қонағы болуға шақырамыз.',
     ownerLbl:    'Той иелері:',
     venueCap:    'Той өтетін орын',
     vcTimeLbl:   'Басталу уақыты',
     vcAddrLbl:   'Мекен-жай',
     vcMapLbl:    'Картада ашу',
-    halalTitle:  'Той Халал өтеді',
-    halalSub:    'Дастарханға ешқандай алкоголь қойылмайды.',
+    calCap:      'Той күні',
+    calMonth:    'Шілде 2026',
+    calDays:     ['ДС','СС','СР','БС','ЖМ','СН','ЖС'],
     msgBody:     'Жуырда біздің өміріміздегі ең бақытты күндердің бірі болмақ! Сол бақытты күнде сіздерді жанымыздан көріп, қуанышымызбен бөліскіміз келеді! Тойымыздың салтанатты дастарханында сіздерді күтеміз!',
     msgSignLbl:  'Құрметпен,',
     rsvpCap:     'Қатысуыңызды растаңыз',
@@ -905,7 +897,8 @@ function render(){
   s('vc-addr-lbl',ui.vcAddrLbl); s('vc-addr',venueAddress);
   s('vc-map-lbl',ui.vcMapLbl);
   const map=document.getElementById('vc-map'); if(map)map.href=venueMapUrl;
-  s('halal-title',ui.halalTitle); s('halal-sub',ui.halalSub);
+  s('cal-cap',ui.calCap); s('cal-month',ui.calMonth);
+  ui.calDays.forEach((d,i)=>s(`cdn-${i+1}`,d));
   s('msg-body',ui.msgBody); s('msg-sign-lbl',ui.msgSignLbl);
   s('msg-n1',groom); s('msg-n2',bride);
   s('rsvp-cap',ui.rsvpCap);
@@ -955,13 +948,11 @@ function initMusic(){
     document.removeEventListener('touchstart',onFirstInteraction);
   }
 
-  // Try immediate autoplay
   audio.volume=0.5;
   audio.play().then(()=>{
     setPlaying(true);
     if(hint)hint.style.display='none';
   }).catch(()=>{
-    // Browser blocked autoplay — show tap hint, play on first interaction
     if(hint)hint.style.display='flex';
     document.addEventListener('click',onFirstInteraction,{once:true});
     document.addEventListener('touchstart',onFirstInteraction,{once:true});
@@ -1008,7 +999,7 @@ function initForm(){
 }
 
 function initAutoScroll(){
-  const sections=['hero','invite','venue','details','message','rsvp']
+  const sections=['hero','invite','venue','calendar','message','rsvp']
     .map(id=>document.getElementById(id)).filter(Boolean);
   let current=0, paused=false, resumeTimer=null;
 
@@ -1028,7 +1019,6 @@ function initAutoScroll(){
   window.addEventListener('touchmove', onUserScroll,{passive:true});
   window.addEventListener('keydown',   onUserScroll);
 
-  // Track which section is in view
   new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
       if(e.isIntersecting){const i=sections.indexOf(e.target);if(i!==-1)current=i;}
