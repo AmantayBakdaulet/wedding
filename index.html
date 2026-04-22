@@ -136,8 +136,14 @@
       background: url('ref2.png') center/cover no-repeat;
       transform: scale(1);
     }
+    #hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.28);
+      z-index: 0;
+    }
 
-.hero-body {
+    .hero-body {
       position: relative; z-index: 1;
     }
 
@@ -145,19 +151,21 @@
       display: block;
       font-size: .6rem; font-weight: 500;
       letter-spacing: .35em; text-transform: uppercase;
-      color: var(--brown); margin-bottom: 28px;
+      color: rgba(255,255,255,0.8); margin-bottom: 28px;
     }
 
     .hero-names {
       font-family: 'Lora', serif;
       font-weight: 400;
       font-size: clamp(3.5rem, 12vw, 9rem);
-      line-height: .95; color: var(--dark);
+      line-height: .95; color: #ffffff;
+      text-shadow: 0 2px 24px rgba(0,0,0,0.45);
     }
     .hero-amp {
       display: block; font-style: italic;
-      font-size: .42em; color: var(--brown);
+      font-size: .42em; color: var(--gold);
       margin: 12px 0 8px; letter-spacing: .05em;
+      text-shadow: 0 1px 12px rgba(0,0,0,0.4);
     }
 
     .hero-sep {
@@ -171,10 +179,19 @@
     .hero-sep-line.rev { background: linear-gradient(to left, transparent, var(--gold)); }
     .hero-sep-diamond { width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); }
 
+    .hero-sep-line {
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.6));
+    }
+    .hero-sep-line.rev {
+      background: linear-gradient(to left, transparent, rgba(255,255,255,0.6));
+    }
+    .hero-sep-diamond { background: var(--gold); }
+
     .hero-date {
       font-family: 'Lora', serif; font-style: italic;
       font-size: clamp(1rem, 2.5vw, 1.4rem);
-      color: var(--brown); letter-spacing: .05em;
+      color: rgba(255,255,255,0.9); letter-spacing: .05em;
+      text-shadow: 0 1px 10px rgba(0,0,0,0.4);
     }
 
 
